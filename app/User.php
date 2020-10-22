@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'avatar', 'social', 'contacts', 'phone', 'email', 'status', 'password',
     ];
 
     /**
@@ -35,5 +35,33 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
+        'status_time_end' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Model\Roles', 'userlevel', 'user_id', 'role_id');
+    }
+
+    public function ads()
+    {
+        return $this->belongsToMany('App\Model\Ads', 'adsuser', 'user_id', 'ads_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsToMany('App\Model\Country', 'usercountry', 'user_id', 'country_id');
+    }
+
+    public function region()
+    {
+        return $this->belongsToMany('App\Model\Region', 'userregion', 'user_id', 'region_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsToMany('App\Model\City', 'usercity', 'user_id', 'city_id');
+    }
 }

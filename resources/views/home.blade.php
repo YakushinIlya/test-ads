@@ -1,23 +1,21 @@
-@extends('layouts.app')
+@extends('layouts.ads')
+
+@section('title'){{$title??config('ads.title')}}@endsection
+@section('description'){{$description??config('ads.description')}}@endsection
+@section('keywords'){{$keywords??config('ads.keywords')}}@endsection
+
+@section('search')
+    @include('front.search')
+@endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+    @include('front.body', ['content' => $content])
+@endsection
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+@section('sidebar')
+    @include('front.sidebar')
+@endsection
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@section('footer')
+    @include('front.footer')
 @endsection

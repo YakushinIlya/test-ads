@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/adsadd', 'api\AdsController@adsCreate')->name('adsAdd');
+Route::post('/page', 'api\PageController@getPage')->name('page');
+
+Route::put('/profile/edit', 'api\ProfileController@getEdit')->name('page');
+Route::post('/profile/myads', 'api\AdsController@getMyads')->name('myads');

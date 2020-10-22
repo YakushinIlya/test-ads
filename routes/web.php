@@ -13,10 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/profile', 'Profile\ProfileController@index')->name('profile');
+Route::get('/profile/edit', 'Profile\ProfileController@edit')->name('profileEdit');
+Route::get('/profile/myads', 'Profile\ProfileController@myAds')->name('profileMyAds');
+
+
+Route::get('/ads/add', 'ADS\AdsController@getAdd')->name('adsFormAdd');
+Route::get('/ads/{id}', 'ADS\AdsController@getCard')->name('adsCard');
