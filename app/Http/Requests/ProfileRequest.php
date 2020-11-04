@@ -26,9 +26,9 @@ class ProfileRequest extends FormRequest
     {
         return [
             'first_name.required' => 'Необходимо заполнить имя',
-            'last_name.required' => 'Необходимо выбрать фамилию',
-            'phone.required' => 'Необходимо выбрать фамилию',
-            'email.required' => 'Необходимо указать e-mail',
+            'last_name.required' => 'Необходимо заполнить фамилию',
+            'phone.required' => 'Необходимо заполнить телефон',
+            'email' => 'Необходимо указать e-mail',
             'info.required' => 'Неверный формат информации о себе',
         ];
     }

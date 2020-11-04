@@ -1,4 +1,4 @@
-<a href="{{route('adsFormAdd')}}" class="btn btn-danger btn-lg btn-block"><i class="fa fa-plus"></i> Подать объявление</a>
+<a href="{{route('adsCreate')}}" class="btn btn-danger btn-lg btn-block"><i class="fa fa-plus"></i> Подать объявление</a>
 <div class="category__add-ads--region">
     <a href="#">Название региона</a>
     <a href="#">Республика Адыгея</a>

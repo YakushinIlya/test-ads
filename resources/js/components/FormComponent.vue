@@ -6,14 +6,19 @@
             </div>
         </div>
         <form @submit="formSubmit">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success mt-3 mb-3" role="status" v-if="loader && !errors && !output">
+                    <span class="sr-only">Загрузка...</span>
+                </div>
+            </div>
             <div class="form-group">
                 <label for="head">Заголовок объявления</label>
                 <input type="text" name="head" class="form-control" v-bind:class="{'is-valid':head,'is-invalid':errors.head}" id="head" v-model="head">
             </div>
             <div class="form-group">
                 <label for="category">Категория объявления</label>
-                <select name="category" class="form-control" v-bind:class="{'is-valid':category,'is-invalid':errors.category}" id="category" v-for="cat in categoryList" v-model="category">
-                    <option v-bind:value="cat.id">{{cat.head}}</option>
+                <select name="category" class="form-control" v-bind:class="{'is-valid':category,'is-invalid':errors.category}" id="category" v-model="category">
+                    <option v-for="cat in categoryList" v-bind:value="cat.id">{{cat.head}}</option>
                 </select>
             </div>
             <div class="form-group">
@@ -55,11 +60,13 @@
                 price: '',
                 output: '',
                 errors: '',
+                loader: false,
             };
         },
         methods: {
             formSubmit(e) {
                 e.preventDefault();
+                this.loader = true;
                 var formData = new FormData();
                 var imagefile = document.querySelector('#avatar');
                 formData.append("userId", this.id);
@@ -69,7 +76,11 @@
                 formData.append("body", this.body);
                 formData.append("price", this.price);
                 let currentObj = this;
-                axios.post(url, formData)
+                axios.post(url, formData, {
+                    header: {
+                        'Content-type': 'multipart/form-data'
+                    },
+                })
                 .then(function (response) {
                     currentObj.output = response.data;
                     currentObj.errors = false;

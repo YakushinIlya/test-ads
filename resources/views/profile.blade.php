@@ -4,12 +4,12 @@
 @section('description'){{$description??config('ads.description')}}@endsection
 @section('keywords'){{$keywords??config('ads.keywords')}}@endsection
 
-@section('search')
-    @include('front.search')
-@endsection
-
 @section('content')
-    {!! $content ?? 'No content' !!}
+    <div class="profile mb-5">
+        <div class="profile__body">
+            {!! $content ?? 'No content' !!}
+        </div>
+    </div>
 @endsection
 
 @section('sidebar')

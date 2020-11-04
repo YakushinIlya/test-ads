@@ -12,6 +12,7 @@ Vue.use(VueRouter)
 import CKEditor from 'ckeditor4-vue';
 Vue.use(CKEditor);
 
+
 import Profile from './views/Profile'
 import ProfileEdit from './views/ProfileEdit'
 import MyAds from './views/MyAds'

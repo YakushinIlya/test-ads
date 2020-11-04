@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/frontend/media/css/bootstrap.min.css">
     <link rel="stylesheet" href="/frontend/media/css/all.min.css">
     <link rel="stylesheet" href="/frontend/media/css/style.css">
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 </head>
 <body class="d-flex flex-column h-100">
 
@@ -56,6 +56,17 @@
                                         <li class="nav-item">
                                             <a href="{{route('profile')}}" class="header__nav-btn-profile nav-link"><i class="fa fa-user"></i> {{__('Мой профиль')}}</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('logout') }}" class="header__nav-btn-profile nav-link"
+                                               onclick="event.preventDefault();
+                                                                 document.getElementById('logout-form').submit();">
+                                                    <i class="fa fa-sign-out-alt"></i> {{ __('Выход') }}
+                                                </a>
+
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                    @csrf
+                                                </form>
+                                        </li>
                                     @endguest
                                 </ul>
                             </span>
@@ -68,12 +79,26 @@
     </header>
 </section>
 
-@yield('search')
+@include('front.form.search', ['category'=>App\Model\Category::select(['id', 'head'])->orderBy('id', 'desc')->get()])
 
 <section class="body">
     <div class="container">
         <div class="row">
             <div class="col-md-9">
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
                 @yield('content')
             </div>
             <div class="col-md-3">
@@ -85,10 +110,11 @@
 
 @yield('footer')
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/frontend/media/js/bootstrap.min.js"></script>
 <script src="/frontend/media/js/bootstrap.bundle.min.js"></script>
 <script src="/frontend/media/js/all.min.js"></script>
+<script src="/frontend/media/js/custom.js"></script>
 
 <script type="text/javascript">
     $(function () {

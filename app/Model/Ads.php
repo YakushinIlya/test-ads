@@ -15,23 +15,40 @@ class Ads extends Model
 
     public static function createAds($data, $data2)
     {
-        if ($data2->hasFile('avatar')) {
+        if($data2->hasFile('avatar')) {
             $fileExt = $data2->file('avatar')->getClientOriginalExtension();
             $destinationPath = '../public/uploads/ads/';
-            $fileName = md5($data['userId'].$data['category'].$data['head'].date('Y-m-d_H:i:m')) . '.' . $fileExt;
-//                $disk = Storage::disk('public');
-//                $destinationPath = $disk->put($fileName, $request->file('images'));
+            $fileName = md5($data2['userId'].$data2['category'].$data2['head'].date('Y-m-d_H:i:m')) . '.' . $fileExt;
             $data2->file('avatar')->move($destinationPath, $fileName);
             Seo::getAvatar($destinationPath.$fileName, 800, 500);
-            $data['avatar'] = $fileName;
         }
 
         $data['title'] = Seo::genTitle($data['head'], $data['body']);
         $data['description'] = Seo::genDescription($data['head'], $data['body']);
         $data['keywords'] = Seo::genKeywords($data['head'], $data['body']);
-        $data['avatar'] = !empty($data['avatar']) ? $data['avatar'] : 'no_photo.jpg';
+        $data['avatar'] = !empty($fileName) ? $fileName : 'no_photo.jpg';
         $data['level'] = 1;
         return parent::create($data);
+    }
+
+    public static function updateAds($data, $ads, $data2)
+    {
+        if($data2->hasFile('avatar')) {
+            $fileExt = $data2->file('avatar')->getClientOriginalExtension();
+            $destinationPath = '../public/uploads/ads/';
+            $fileName = md5($data2['userId'].$data2['category'].$data2['head'].date('Y-m-d_H:i:m')) . '.' . $fileExt;
+//                $disk = Storage::disk('public');
+//                $destinationPath = $disk->put($fileName, $request->file('images'));
+            $data2->file('avatar')->move($destinationPath, $fileName);
+            Seo::getAvatar($destinationPath.$fileName, 800, 500);
+        }
+
+        $data['title'] = Seo::genTitle($data['head'], $data['body']);
+        $data['description'] = Seo::genDescription($data['head'], $data['body']);
+        $data['keywords'] = Seo::genKeywords($data['head'], $data['body']);
+        $data['avatar'] = $fileName ?? $ads['avatar'] ?? 'no_photo.jpg';
+        $data['level'] = 1;
+        return parent::find($ads['id'])->update($data);
     }
 
     public function category()

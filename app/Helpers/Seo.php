@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Model\Ads;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class Seo
@@ -21,7 +22,7 @@ class Seo
         return true;
     }
 
-    public static function getAvatar($img,  $w=300, $h=300)
+    public static function getAvatar($img, $w=300, $h=300)
     {
         $image = Image::make($img);
         $height = $image->height();

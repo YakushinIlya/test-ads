@@ -14,10 +14,9 @@ class AdsRequest extends FormRequest
     public function rules()
     {
         return [
-            'userId'  => 'nullable|integer',
             'head'  => 'required|string',
             'category'  => 'required|integer',
-            'avatar'  => 'nullable|mimes:jpeg,png,jpg,gif|max:5048',
+            'avatar'  => 'mimes:jpeg,png,jpg,gif|max:5048',
             'body' =>  'required|string',
             'price' =>  'required|integer',
         ];

@@ -56,7 +56,7 @@
         data() {
             return {
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                id: this.data.id,
+                id: this.data.user.id,
                 output: '',
                 errors: '',
             };

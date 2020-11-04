@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Model\Ads;
 use App\Model\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public $colors = [
+
+    ];
     /**
      * Create a new controller instance.
      *
@@ -28,7 +32,9 @@ class HomeController extends Controller
         $data = [
             'content' => view('front.index', [
                 'category_list' => Category::where('level', '>', 0)->orderBy('id', 'desc')->get(),
-                'ads_list' => Ads::where('level', '>', 0)->orderBy('id', 'desc')->get(),
+                'ads_list' => Ads::where('level', '>', 0)->orderBy('id', 'desc')->limit(270)->paginate(config('view.ads.paginate')),
+                'colors' => $this->colors,
+                'str' => new Str,
             ]),
         ];
         return view('home', $data);

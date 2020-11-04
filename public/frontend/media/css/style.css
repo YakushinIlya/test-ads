@@ -1,7 +1,4 @@
-svg.svg-inline--fa {
-    width: 16px !important;
-    height: 16px !important;
-}
+
 
 section {
     flex-shrink: 0!important;
@@ -51,7 +48,6 @@ section.search .search__form {
     margin-bottom: 25px;
 }
 .category__list .category__list-icon svg {
-    height: 40px;
     font-size: 180%;
     color: #313131;
 }
@@ -61,6 +57,11 @@ section.search .search__form {
     flex: none;
     padding: 0px;
 }
+
+.price {
+    font-size: 120%;
+}
+
 .category__list .card-group>.card:hover,
 .profile__body .card-group>.card:hover {
     z-index: 10;
