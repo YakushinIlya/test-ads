@@ -34,7 +34,7 @@ return [
     ),
 
     'ads' => [
-        'paginate' => 27,
+        'paginate' => 30,
     ],
 
 ];

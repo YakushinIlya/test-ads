@@ -30,7 +30,7 @@
                     <i class="fa fa-eye"></i>
                     <small class="text-muted" data-toggle="tooltip" data-placement="top" title="Количество просмотров объявления">{{$ads->views}}</small>
                 </div>
-                @if(Auth::user()->isAdmin())
+                @if(Auth()->check() && Auth::user()->isAdmin())
                     <div class="card-text col-12 mt-5">
                         <a href="{{route('adminAdsUpdate', ['id'=>$ads->id])}}" class="text-danger" target="_blank"><i class="fa fa-pencil"></i> Редактировать</a>
                     </div>

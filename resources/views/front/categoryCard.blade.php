@@ -1,6 +1,6 @@
 <div class="category__list">
     <h1><i class="fa fa-{{$category['icon']??'question-circle'}}"></i> {{$category['head']}}</h1>
-    <div>{{$category['body']}}</div>
+    <div>{!! base64_decode($category['body']) !!}</div>
     @if(isset($ads_list) && !empty($ads_list))
         <div class="row">
             <div class="card-group mt-5">

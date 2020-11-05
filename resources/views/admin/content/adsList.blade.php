@@ -10,7 +10,7 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">
-                        <img src="/uploads/ads/{{$ads->avatar??'no_photo.jpg'}}" class="img-thumbnail" height="150px">
+                        <img src="/uploads/ads/{{$ads->avatar??'no_photo.jpg'}}" class="img-thumbnail">
                     </p>
                     <p class="card-text">
                         @if($country=$ads->country()->first())
@@ -27,7 +27,9 @@
                         Статус: @if(empty($ads->deleted_at))
                             <span class="badge badge-success">Активный</span>
                         @else
-                            <span class="badge badge-danger">Удален</span>
+                            <a href="{{route('adminAdsDeleteNew', ['id'=>$ads->id])}}" data-toggle="tooltip" data-placement="top" title="Удалить навсегда">
+                                <span class="badge badge-danger">Удален</span>
+                            </a>
                         @endif
                     </p>
                     <a href="{{route('adminAdsUpdate', ['id'=>$ads->id])}}" class="btn btn-primary btn-sm mb-1"><i class="fa fa-user-edit"></i> Редактировать</a>

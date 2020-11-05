@@ -23,7 +23,7 @@ class CreateAdsTable extends Migration
             $table->float('price')->default(0);
             $table->string('avatar')->nullable();
             $table->json('photo')->nullable();
-            $table->json('geo')->nullable();
+            $table->json('param')->nullable();
             $table->string('level')->nullable();
             $table->integer('views')->default(0);
             $table->timestamps();

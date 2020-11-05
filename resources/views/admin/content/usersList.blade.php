@@ -12,7 +12,9 @@
                                 @elseif($user->status==0 && !empty($user->status_time_end))
                             <span class="badge badge-warning">Заблокирован до: {{$user->status_time_end}}</span>
                                 @else
-                            <span class="badge badge-danger">Удален</span>
+                            <a href="{{route('adminUsersDeleteNew', ['id'=>$user->id])}}" data-toggle="tooltip" data-placement="top" title="Удалить навсегда">
+                                <span class="badge badge-danger">Удален</span>
+                            </a>
                                 @endif
                         <br>
                         e-mail: {{$user->email}}<br>

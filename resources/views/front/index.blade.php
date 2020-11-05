@@ -4,7 +4,7 @@
             @foreach($category_list as $cat)
                 <div class="col-md-3 col-6 category__list-icon">
                     <a href="{{route('categoryCard', ['id'=>$cat->id])}}">
-                        <span class="fa fa-{{$cat->icon??'question-circle'}} fa-lg"></span>
+                        <span class="{{$cat->icon??'question-circle'}} fa-lg"></span>
                         <br>
                         <span>{{$cat->head}}</span>
                     </a>

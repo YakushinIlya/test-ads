@@ -10,7 +10,9 @@
                         Статус: @if(empty($category->deleted_at))
                             <span class="badge badge-success">Активный</span>
                         @else
-                            <span class="badge badge-danger">Удален</span>
+                            <a href="{{route('adminCategoryDeleteNew', ['id'=>$category->id])}}" data-toggle="tooltip" data-placement="top" title="Удалить навсегда">
+                                <span class="badge badge-danger">Удален</span>
+                            </a>
                         @endif
                     </p>
                     <a href="{{route('adminCategoryUpdate', ['id'=>$category->id])}}" class="btn btn-primary btn-sm mb-1"><i class="fa fa-user-edit"></i> Редактировать</a>

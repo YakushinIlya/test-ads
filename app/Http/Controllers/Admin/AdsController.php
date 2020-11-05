@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Country;
-use App\Model\Category;
-use App\Model\City;
 use App\Helpers\Ads as AdsHelp;
-use App\Model\Ads;
+use App\Model\{
+    Ads, Adscategory, Adscountry, Adsregion, Adscity, Adsuser, Country, Category
+};
 use Validator;
 
 class AdsController extends Controller
@@ -66,7 +64,19 @@ class AdsController extends Controller
         Ads::find($id)->update([
             'deleted_at' => now()
         ]);
-        return redirect()->route('adminAdsAll')->with('status', 'Объявление успешно удалено');
+        return redirect()->route('adminAdsAll')->with('status', 'Объявление успешно удалено в корзину');
+    }
+
+    public function getDeleteNew($id)
+    {
+        $ads = Ads::find($id);
+        Adscategory::where('ads_id', $id)->delete();
+        Adscountry::where('ads_id', $id)->delete();
+        Adsregion::where('ads_id', $id)->delete();
+        Adscity::where('ads_id', $id)->delete();
+        Adsuser::where('ads_id', $id)->delete();
+        $ads->delete();
+        return redirect()->route('adminAdsAll')->with('status', 'Объявление успешно удалено навсегда и безвозвратно');
     }
 
     protected function validator(array $data)

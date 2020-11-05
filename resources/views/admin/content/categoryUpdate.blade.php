@@ -1,5 +1,6 @@
 <form method="post" action="{{route('adminCategoryUpdate', ['id'=>$category->id])}}" accept="application/json">
     @csrf
+    <input type="hidden" name="level" value="1">
     <div class="form-group">
         <label for="title">Title</label>
         <input type="text" name="title" class="form-control" id="title" placeholder="Title" value="{{$category->title}}">

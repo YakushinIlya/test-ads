@@ -72,12 +72,10 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        if(Auth()->check()) {
-            if($this->roles()->get()[0]->level<config('ads.roles.minAdmin')){
-                return false;
-            } else {
-                return true;
-            }
+        if($this->roles()->get()[0]->level<config('ads.roles.minAdmin')){
+            return false;
+        } else {
+            return true;
         }
     }
 

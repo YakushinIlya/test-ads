@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Model\Category;
+use App\Model\{
+    Category, Adscategory
+};
 use Illuminate\Http\Request;
 use Validator;
 
@@ -47,6 +49,7 @@ class CategoriesController extends Controller
             if($validator->fails()) {
                 return redirect()->route('adminCategoryUpdate', ['id'=>$id])->withInput()->withErrors($validator);
             }
+            $request['body'] = base64_encode($request->body);
             if(Category::find($id)->update($request->all())) {
                 return redirect()->route('adminCategoriesAll')->with('status', 'Категория успешно обновлена');
             }
@@ -66,6 +69,13 @@ class CategoriesController extends Controller
             'deleted_at' => now()
         ]);
         return redirect()->route('adminCategoriesAll')->with('status', 'Категория успешно удалена');
+    }
+
+    public function getDeleteNew($id)
+    {
+        Adscategory::where('category_id', $id)->delete();
+        Category::find($id)->delete();
+        return redirect()->route('adminCategoriesAll')->with('status', 'Категория успешно удалена навсегда и безвозвратно');
     }
 
     protected function validator(array $data)

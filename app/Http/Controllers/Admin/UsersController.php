@@ -81,4 +81,10 @@ class UsersController extends Controller
         ]);
         return redirect()->route('adminUsersAll')->with('status', 'Пользователь успешно удален');
     }
+
+    public function getDeleteNew($id)
+    {
+        User::find($id)->delete();
+        return redirect()->route('adminUsersAll')->with('status', 'Пользователь успешно удален');
+    }
 }

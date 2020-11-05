@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Ads;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
-use App\Model\Country;
-use App\Model\Region;
-use App\Model\City;
+use App\Model\{
+    Country, Region, City
+};
 use Illuminate\Http\Request;
 
 class GeoController extends Controller

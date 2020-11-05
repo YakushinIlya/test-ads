@@ -31,6 +31,13 @@
                     Объявления
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa fa-trash fa-lg"></i>
+                    Корзина
+                </a>
+            </li>
         </ul>
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -43,25 +50,25 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <span data-feather="file-text"></span>
-                    Current month
+                    Из рук в руки
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <span data-feather="file-text"></span>
-                    Last quarter
+                    Авито
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <span data-feather="file-text"></span>
-                    Social engagement
+                    Купи продай
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <span data-feather="file-text"></span>
-                    Year-end sale
+                    Юла
                 </a>
             </li>
         </ul>

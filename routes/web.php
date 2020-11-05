@@ -52,14 +52,17 @@ Route::group([
     Route::match(['get', 'post'],'users/create', 'UsersController@getCreate')->name('adminUsersCreate');
     Route::match(['get', 'post'],'users/update/{id}', 'UsersController@getUpdate')->where('id', '[0-9]+')->name('adminUsersUpdate');
     Route::get('users/delete/{id}', 'UsersController@getDelete')->where('id', '[0-9]+')->name('adminUsersDelete');
+    Route::get('users/delete-new/{id}', 'UsersController@getDeleteNew')->where('id', '[0-9]+')->name('adminUsersDeleteNew');
 
     Route::get('categories', 'CategoriesController@getAll')->name('adminCategoriesAll');
     Route::match(['get', 'post'],'categories/create', 'CategoriesController@getCreate')->name('adminCategoryCreate');
     Route::match(['get', 'post'],'categories/update/{id}', 'CategoriesController@getUpdate')->where('id', '[0-9]+')->name('adminCategoryUpdate');
     Route::get('categories/delete/{id}', 'CategoriesController@getDelete')->where('id', '[0-9]+')->name('adminCategoryDelete');
+    Route::get('categories/delete-new/{id}', 'CategoriesController@getDeleteNew')->where('id', '[0-9]+')->name('adminCategoryDeleteNew');
 
     Route::get('ads', 'AdsController@getAll')->name('adminAdsAll');
     Route::match(['get', 'post'],'ads/create', 'AdsController@getCreate')->name('adminAdsCreate');
     Route::match(['get', 'post'],'ads/update/{id}', 'AdsController@getUpdate')->where('id', '[0-9]+')->name('adminAdsUpdate');
     Route::get('ads/delete/{id}', 'AdsController@getDelete')->where('id', '[0-9]+')->name('adminAdsDelete');
+    Route::get('ads/delete-new/{id}', 'AdsController@getDeleteNew')->where('id', '[0-9]+')->name('adminAdsDeleteNew');
 });

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Ads;
 
-use App\Model\Ads;
-use App\Model\Category;
+use App\Model\{
+    Ads, Category
+};
 use App\Helpers\Ads as AdsHelp;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
