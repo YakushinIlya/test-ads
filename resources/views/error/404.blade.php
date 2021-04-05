@@ -1,0 +1,1 @@
+<div class="alert alert-danger">{{__('Ошибка '.$code.'. Страница не найдена...')}}</div>

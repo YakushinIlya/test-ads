@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title'){{$title??config('ads.title')}}@endsection
+@section('title'){{config('app.name')}}@endsection
 
 @section('sidebar')
     @include('admin.sidebar')

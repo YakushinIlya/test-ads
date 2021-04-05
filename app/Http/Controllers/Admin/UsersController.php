@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\{
+    Adsuser, Userlevel, Usercountry, Userregion, Usercity
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
@@ -84,6 +87,11 @@ class UsersController extends Controller
 
     public function getDeleteNew($id)
     {
+        Adsuser::where('user_id', $id)->delete();
+        Userlevel::where('user_id', $id)->delete();
+        Usercountry::where('user_id', $id)->delete();
+        Userregion::where('user_id', $id)->delete();
+        Usercity::where('user_id', $id)->delete();
         User::find($id)->delete();
         return redirect()->route('adminUsersAll')->with('status', 'Пользователь успешно удален');
     }

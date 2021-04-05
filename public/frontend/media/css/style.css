@@ -1,3 +1,41 @@
+html, body {
+    background: #f7f7f7;
+}
+a {
+    color: #5e1700;
+}
+a:hover {
+    color: #ac2a00;
+}
+label.btn {
+    box-shadow: none;
+    margin-right: 10px;
+}
+.search__form .btn {
+    box-shadow: 10px 7px 18px -5px rgba(200, 200, 200, 0.75);
+}
+.btn:not(.btn-link),
+label.active  {
+    box-shadow: 10px 7px 18px -5px rgba(50, 50, 50, 0.75);
+}
+.btn:hover {
+    transform: translate(1.5px, 1.5px);
+    animation: mymove1 0.3s infinite;
+}
+.btn-tertiary {
+    text-align: center;
+}
+.btn-warning {
+    background: #ffa500;
+}
+.alert ul {
+    list-style: none;
+    padding: 0px;
+}
+.fixed-top-custom {
+    position: fixed;
+    top: 10px;
+}
 
 
 section {
@@ -17,14 +55,12 @@ header .header__nav .header__nav-btn-profile {
     color: #5e1700 !important;
     font-weight: bold;
 }
-header .header__nav .header__nav-btn-login svg {
-    color: blue !important;
-}
+header .header__nav .header__nav-btn-login svg,
 header .header__nav .header__nav-btn-register svg {
-    color: green !important;
+    color: #dc3545 !important;
 }
 header .header__nav .header__nav-btn-profile svg {
-    color: orange !important;
+    color: #ffa500 !important;
 }
 header .header__nav .header__nav-btn-login:hover,
 header .header__nav .header__nav-btn-register:hover,
@@ -32,27 +68,43 @@ header .header__nav .header__nav-btn-profile:hover {
     color: #ac2a00 !important;
     font-weight: bold;
 }
+header .header__nav,
+header .header__nav .navbar {
+    padding-left: 0px;
+    padding-right: 0px;
+}
 
 section.search .search__form {
-    background: #ffc000;
+    background: rgba(0,0,0,.7);
+    /*background: linear-gradient(to top, #000000 1%, #919191 50%, #000000 99%);
+    background: radial-gradient(circle farthest-corner at 100px 50px, #919191, #353535);*/
     margin-top: 15px;
     margin-bottom: 15px;
     padding-top: 15px;
     padding-bottom: 15px;
-    border: 2px solid #ffd451;
+    box-shadow: 0 0 0 1px #fff, 0 0 0 4px #000;
     border-radius: 4px;
 }
-
-.category__list .category__list-icon {
-    text-align: center;
-    margin-bottom: 25px;
+/*section.search .openline {
+    margin-top: 5px;
+    border-top: 1px dashed #767676;
 }
-.category__list .category__list-icon svg {
-    font-size: 180%;
-    color: #313131;
+section.search .openline #openline {
+    width: 16px;
+    height: 16px;
+    background: #000;
+    display: block;
+    margin: 2px auto auto auto;
+    color: #FFF;
+    cursor: pointer;
 }
+section.search .openline #openline:hover {
+    color: #a3a3a3;
+}*/
 
-.category__list .card-group>.card,
+
+
+.ads__list .card-group>.card,
 .profile__body .card-group>.card {
     flex: none;
     padding: 0px;
@@ -62,7 +114,7 @@ section.search .search__form {
     font-size: 120%;
 }
 
-.category__list .card-group>.card:hover,
+.ads__list .card-group>.card:hover,
 .profile__body .card-group>.card:hover {
     z-index: 10;
     -webkit-transform: scale(1.03);
@@ -71,28 +123,166 @@ section.search .search__form {
     box-shadow: 0 0 20px 5px #cccccc;
     transition: 0.3s;
 }
-.category__list .card-group>.card img,
+.ads__list .card-group>.card img,
 .profile__body .card-group>.card img {
     width: 100%;
     height: 150px;
     object-fit: cover;
 }
-.category__list .card-group>.card .card-footer,
+.ads__list .card-group>.card .card-footer,
 .profile__body .card-group>.card .card-footer {
-    font-size: 120%;
+    font-size: 110%;
+}
+
+.card .carousel-item img {
+    max-width: 800px;
+    max-height: 500px;
+    object-fit: cover;
 }
 
 
+.user-avatar {
+    max-height: 150px;
+    margin: 7px 7px 7px 0px;
+}
 
 
+nav .pagination {
+    max-width: 100%;
+}
 
+section.body {
+    margin-bottom: 50px;
+}
+section.body .card-group {
+    padding: 0px 15px 15px 15px;
+    width: 100%;
+}
+section.body > div > div > div {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+section.body > div > div > div.col-md-9 {
+    padding-right: 7px;
+}
+section.body > div > div > div.col-md-3 {
+    padding-left: 15px;
+}
+section.body .ads-card .card-img-top {
+    max-width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+}
+.card-city {
+    font-size: 12px;
+    margin: 0px;
+}
+.nav-item a.active {
+    color: #FFF !important;
+    background: #dc3545 !important;;
+}
+
+.sidebar {
+    width: auto;
+}
+.marketcarsModalBrand,
+.marketcarsModalRegion,
+.marketcarsModalCity {
+    background: #FFF;
+    box-shadow: none !important;
+}
+.profile__sidebar-nav svg {
+    width: 18px !important;
+    height: 18px !important;;
+}
+.card-body {
+    padding: 0.45rem 1rem 1.25rem 1rem;
+}
+.card-body-list {
+    padding: 0.25rem 0.30rem 0.25rem 0.30rem;
+}
+.card-body-list h1.h6 {
+    font-size: 100%;
+}
+.card-body-list .card-text {
+    font-size: 90%;
+}
+.card-footer-list {
+    padding: 0.25rem 0.30rem 0.25rem 0.50rem;
+}
+.carousel-control-next-icon {
+    background-image: url(../img/next.png) !important;
+}
+.carousel-control-prev-icon {
+    background-image: url(../img/prev.png) !important;;
+}
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    width: 30px;
+    height: 60px;
+}
+.carousel-control-next,
+.carousel-control-prev {
+    width: 7%;
+    background: #ffffff;
+}
 
 
 
 section.footer {
     padding: 25px 0px 25px 0px;
-    background-color: #f5f5f5;
+    background-color: #d7d7d7;
 }
 footer .footer__logo img {
     max-height: 50px;
+}
+
+.page-link,
+.page-link:hover,
+.card-body a {
+	color: #dc3545;
+}
+.page-item.active .page-link {
+	background: #dc3545;
+	border-color: #dc3545;
+}
+
+
+
+.btn-group>.btn-outline-danger {
+    border: 1px solid #ced4da;
+    box-shadow: none;
+}
+
+
+
+.example-2 .btn-tertiary{position:absolute;z-index:20;top:110px;left:0;right:0;padding:0;line-height:40px;margin:auto;background:rgba(255,255,255,.9);text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+    display:none;}
+.example-2 .btn-tertiary:hover,.example-2 .btn-tertiary:focus{color:#313132;}
+.example-2 .input-file{width:.1px;height:.1px;opacity:0;overflow:hidden;position:absolute;z-index:-1}
+.example-2 .input-file + .js-labelFile{padding:0 10px;cursor:pointer;}
+.example-2 .input-file + .js-labelFile .icon:before{content:"\f093"}
+.js-labelFile{position:relative;top:50%;}
+.user-avatar-right:hover .btn-tertiary {
+    display:block;
+}
+
+
+
+
+
+@media(max-width: 577px){
+    section.body>div>div>div {
+        padding: 0px 10px 0px 10px;
+    }
+
+    .ads__list .card-group .card {
+        margin-bottom: 20px;
+    }
+    .ads__list .card-group .card-body-list .card-text {
+        font-size: 100%;
+    }
+    .ads__list .card-group .card-footer-list .badge {
+        font-size: 100%;
+    }
 }

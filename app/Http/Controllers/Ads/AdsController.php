@@ -21,7 +21,7 @@ class AdsController extends Controller
         $data = [
             'content' => view('front.form.adsAdd', [
                 'user' => Auth::user(),
-                'categories' => Category::select(['id', 'head'])->orderBy('id', 'desc')->get(),
+                'categories' => Category::select(['id', 'head'])->orderBy('id', 'asc')->get(),
             ]),
         ];
         return view('profile', $data);
@@ -29,13 +29,20 @@ class AdsController extends Controller
 
     public function getCard($id)
     {
-        $ads = Ads::find($id);
-        $ads->increment('views', 1);
+        $url = explode('_', $id);
+        $adsObj = new Ads;
+        $ads = $adsObj->whereRaw('id=? && url=?', [$url[0], $url[1]])->whereNull('deleted_at')->get()->first();
+        if(is_null($ads)) {
+            return redirect()->route('home')->withErrors(['message'=>'Объявление не найдено']);
+        }
+        $adsFind = $adsObj->find($ads->id);
+        $adsFind->increment('views', 1);
         $data = [
-            'title' => $ads['title'],
-            'description' => $ads['description'],
-            'keywords' => $ads['keywords'],
+            'title' => $ads->title,
+            'description' => $ads->description,
+            'keywords' => $ads->keywords,
             'content' => view('front.adsCard', [
+                'us' => $adsFind->user()->get()->first(),
                 'ads' => $ads,
             ]),
         ];
@@ -57,6 +64,30 @@ class AdsController extends Controller
             'title' => $ads['Редактирование объявления'],
             'content' => view('front.form.adsUpdate', [
                 'ads' => $ads,
+                'categories' => Category::all(),
+                'motor' => [
+                    'Бензин',
+                    'Газ',
+                    'Дизель',
+                    'Электрический',
+                    'Другое',
+                ],
+                'condition' => [
+                    'Не битый',
+                    'Битый'
+                ],
+                'bodycar' => [
+                    'Кроссовер',
+                    'Внедорожник',
+                    'Пикап',
+                    'Хетчбэк',
+                    'Седан',
+                    'Минивен',
+                    'Родстер',
+                    'Кабриолет',
+                    'Купе',
+                    'Лимузин',
+                ],
             ]),
         ];
         return view('profile', $data);

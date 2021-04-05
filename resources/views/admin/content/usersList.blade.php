@@ -17,6 +17,12 @@
                             </a>
                                 @endif
                         <br>
+                        @if(!is_null($user->email_verified_at))
+                            <span class="badge badge-success">Подтвержден</span>
+                        @else
+                            <span class="badge badge-dark">Не подтвержден</span>
+                        @endif
+                        <br>
                         e-mail: {{$user->email}}<br>
                         phone: {{$user->phone}}<br>
                     </p>

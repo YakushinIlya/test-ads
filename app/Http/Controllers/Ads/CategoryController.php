@@ -13,12 +13,12 @@ class CategoryController extends Controller
     {
         $cat = Category::find($id);
         $data = [
-            'title' => $cat['title'],
-            'description' => $cat['description'],
-            'keywords' => $cat['keywords'],
+            'title' => $cat['title'].' - купить или продать автомобиль',
+            'description' => 'Бесплатные объявления о покупке и продаже автомобилей '.$cat['description'].'. Купить или продать автомобиль '.$cat['description'].' бесплатно на market-cars.ru.',
+            'keywords' => 'купить, продать, автомобиль, '.$cat['keywords'],
             'content' => view('front.categoryCard', [
                 'category' => $cat,
-                'ads_list' => $cat->ads()->orderBy('id', 'desc')->paginate(config('view.ads.paginate')),
+                'ads_list' => $cat->ads()->whereNull('deleted_at')->orderBy('id', 'desc')->paginate(config('view.ads.paginate')),
                 'str' => new Str,
             ]),
         ];

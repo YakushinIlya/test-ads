@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserregionTable extends Migration
+class CreateAdsregionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateUserregionTable extends Migration
      */
     public function up()
     {
-        Schema::create('userregion', function (Blueprint $table) {
+        Schema::create('adsregion', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('ads_id');
             $table->unsignedBigInteger('region_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('region_id')->references('id')->on('region');
+            $table->foreign('ads_id')->references('id')->on('ads');
+            $table->foreign('region_id')->references('old')->on('region');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateUserregionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('userregion');
+        Schema::dropIfExists('adsregion');
     }
 }

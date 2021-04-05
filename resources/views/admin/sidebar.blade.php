@@ -31,6 +31,12 @@
                     Объявления
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('adminPages')}}">
+                    <i class="fas fa-file-alt"></i>
+                    Страницы
+                </a>
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="#">
@@ -48,27 +54,9 @@
         </h6>
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('adminParsRestApp')}}">
                     <span data-feather="file-text"></span>
-                    Из рук в руки
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span>
-                    Авито
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span>
-                    Купи продай
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span>
-                    Юла
+                    RestApp API
                 </a>
             </li>
         </ul>

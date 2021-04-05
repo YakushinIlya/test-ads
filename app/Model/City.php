@@ -9,7 +9,7 @@ class City extends Model
     protected $table = 'city';
 
     protected $fillable = [
-        'id_country', 'id_region', 'old', 'city_name_ru', 'city_name_en'
+        'id_country', 'id_region', 'old', 'old_region', 'city_name_ru', 'city_name_en'
     ];
 
     public function ads()

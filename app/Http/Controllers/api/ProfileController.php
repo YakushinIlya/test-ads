@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\ProfileImgRequest;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 
 class ProfileController extends Controller
@@ -25,7 +26,7 @@ class ProfileController extends Controller
 
     public function getImg(ProfileImgRequest $request)
     {
-        $user = User::find($request->id);
+        return $request;
         $res = $user->updateAvatar($request->validated(), $request);
         return $res;
     }

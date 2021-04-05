@@ -20,7 +20,7 @@ class GeoController extends Controller
             'keywords' => $country['country_name_ru'],
             'content' => view('front.geoCard', [
                 'title' => $country['country_name_ru'],
-                'ads_list' => $country->ads()->orderBy('id', 'desc')->distinct()->paginate(config('view.ads.paginate')),
+                'ads_list' => $country->ads()->whereNull('deleted_at')->orderBy('id', 'desc')->distinct()->paginate(config('view.ads.paginate')),
                 'str' => new Str,
             ]),
         ];
@@ -31,12 +31,13 @@ class GeoController extends Controller
     {
         $region = Region::find($id);
         $data = [
-            'title' => $region['region_name_ru'],
-            'description' => $region['region_name_ru'],
-            'keywords' => $region['region_name_ru'],
+            'title' => $region['region_name_ru'].' - покупка и продажа автомобилей',
+            'description' => 'Бесплатные объявления о покупке и продаже автомобилей '.$region['region_name_ru'].'. Купить или продать автомобиль бесплатно на market-cars.ru.',
+            'keywords' => 'купить, продать, автомобиль, '.$region['region_name_ru'],
             'content' => view('front.geoCard', [
+                'id' => $id,
                 'title' => $region['region_name_ru'],
-                'ads_list' => $region->ads()->orderBy('id', 'desc')->distinct()->paginate(config('view.ads.paginate')),
+                'ads_list' => $region->ads()->whereNull('deleted_at')->orderBy('id', 'desc')->distinct()->paginate(config('view.ads.paginate')),
                 'str' => new Str,
             ]),
         ];
@@ -47,12 +48,12 @@ class GeoController extends Controller
     {
         $city = City::find($id);
         $data = [
-            'title' => $city['city_name_ru'],
-            'description' => $city['city_name_ru'],
-            'keywords' => $city['city_name_ru'],
+            'title' => $city['city_name_ru'].' - покупка и продажа автомобилей',
+            'description' => 'Бесплатные объявления о покупке и продаже автомобилей в г. '.$city['city_name_ru'].'. Купить или продать автомобиль бесплатно на market-cars.ru.',
+            'keywords' => 'купить, продать, автомобиль, '.$city['city_name_ru'],
             'content' => view('front.geoCard', [
                 'title' => $city['city_name_ru'],
-                'ads_list' => $city->ads()->orderBy('id', 'desc')->distinct()->paginate(config('view.ads.paginate')),
+                'ads_list' => $city->ads()->whereNull('deleted_at')->orderBy('id', 'desc')->distinct()->paginate(config('view.ads.paginate')),
                 'str' => new Str,
             ]),
         ];

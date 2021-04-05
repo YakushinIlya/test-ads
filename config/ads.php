@@ -1,9 +1,11 @@
 <?php
 
 return [
-    'title' => 'ADS-title',
-    'description' => 'ADS - description',
-    'keywords' => 'ADS, keywords',
+    'title' => 'Купить или продать автомобиль на market-cars.ru',
+    'description' => 'Выгодная покупка или продажа автомобилей на сайте объявлений для автомобилистов market-cars.ru',
+    'keywords' => 'ads, объявления, покупка, продажа, автомобили, buy, sell, auto, car',
+
+    'h1' => 'Покупка/продажа автомобилей',
 
     'roles' => [
         'minAdmin' => 3,

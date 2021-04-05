@@ -3,11 +3,13 @@
 namespace App;
 
 use App\Helpers\Seo;
+use App\Mail\Auth\VerifyEmail;
+use App\Mail\Auth\ResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -52,24 +54,6 @@ class User extends Authenticatable
         return $password;
     }
 
-    public function updateAvatar($data, $data2)
-    {
-        if($data2->hasFile('avatar')) {
-            $fileExt = $data2->file('avatar')->getClientOriginalExtension();
-            $destinationPath = '../public/uploads/user/avatars/';
-            $fileName = md5($data2['id'].time()) . '.' . $fileExt;
-//                $disk = Storage::disk('public');
-//                $destinationPath = $disk->put($fileName, $request->file('images'));
-            $data2->file('avatar')->move($destinationPath, $fileName);
-            Seo::getAvatar($destinationPath.$fileName, 300, 300);
-        }
-        $avatar = !empty($fileName) ? $fileName : 'no_photo.jpg';
-        if(parent::update(['avatar'=>$avatar])){
-            return $avatar;
-        }
-        return false;
-    }
-
     public function isAdmin()
     {
         if($this->roles()->get()[0]->level<config('ads.roles.minAdmin')){
@@ -102,5 +86,15 @@ class User extends Authenticatable
     public function city()
     {
         return $this->belongsToMany('App\Model\City', 'usercity', 'user_id', 'city_id');
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
     }
 }

@@ -15,12 +15,13 @@ class Profile
             return redirect()->route('profileEdit')->withInput()->withErrors($validator);
         }
         $user = User::find($request->user()->id);
-        if(empty($user->country()->first()) || empty($user->region()->first()) || empty($user->city()->first())) {
-            $user->country()->attach($request->country);
+        $request['info'] = base64_encode($request['info']);
+        $user->update($request->all());
+        if(empty($user->region()->first()) || empty($user->city()->first())) {
+            $user->country()->attach(1);
             $user->region()->attach($request->region);
             $user->city()->attach($request->city);
         }
-        $user->update($request->all());
         if ($user) {
             return redirect()->route('profileEdit')->with('status', 'Данные профиля успешно обновлены.');
         }
@@ -32,9 +33,6 @@ class Profile
             'last_name' => 'required|string|:max:255',
             'phone' => 'required|string',
             'info' => 'required|string',
-            'country' => 'required',
-            'region' => 'required',
-            'city' => 'required',
         ]);
     }
 

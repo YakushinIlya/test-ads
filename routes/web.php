@@ -14,14 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::group([
-    'middleware' => ['auth'],
+    'middleware' => ['auth', 'verified'],
 ], function(){
     Route::get('/profile', 'Profile\ProfileController@index')->name('profile');
     Route::match(['get', 'post'],'/profile/edit', 'Profile\ProfileController@edit')->name('profileEdit');
     Route::get('/profile/myads', 'Profile\ProfileController@myAds')->name('profileMyAds');
+    Route::post('/profile/avatar', 'Profile\ProfileController@avatarDown');
 
     Route::match(['get', 'post'],'/ads/create', 'Ads\AdsController@getCreate')->name('adsCreate');
     Route::match(['get', 'post'], '/ads/update/{id?}', 'Ads\AdsController@getUpdate')->name('adsUpdate');
@@ -29,16 +30,19 @@ Route::group([
 });
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/sell', 'HomeController@getSell')->name('adsSell');
+Route::get('/buy', 'HomeController@getBuy')->name('adsBuy');
 Route::match(['get', 'post'], '/search', 'SearchController@index')->name('search');
 
 Route::group([
     'namespace' => 'Ads',
 ], function(){
-Route::get('/ads/{id}', 'AdsController@getCard')->name('adsCard');
-Route::get('/category/{id}', 'CategoryController@getCard')->name('categoryCard');
-Route::get('/country/{id}', 'GeoController@getCountry')->name('country');
-Route::get('/region/{id}', 'GeoController@getRegion')->name('region');
-Route::get('/city/{id}', 'GeoController@getCity')->name('city');
+    Route::get('/ads/{id}', 'AdsController@getCard')->name('adsCard');
+    Route::get('/category/{id}', 'CategoryController@getCard')->name('categoryCard');
+    Route::get('/country/{id}', 'GeoController@getCountry')->name('country');
+    Route::get('/region/{id}', 'GeoController@getRegion')->name('region');
+    Route::get('/city/{id}', 'GeoController@getCity')->name('city');
+    Route::get('/user/{id}', 'UserController@getCard')->name('userCard');
 });
 
 Route::group([
@@ -65,4 +69,19 @@ Route::group([
     Route::match(['get', 'post'],'ads/update/{id}', 'AdsController@getUpdate')->where('id', '[0-9]+')->name('adminAdsUpdate');
     Route::get('ads/delete/{id}', 'AdsController@getDelete')->where('id', '[0-9]+')->name('adminAdsDelete');
     Route::get('ads/delete-new/{id}', 'AdsController@getDeleteNew')->where('id', '[0-9]+')->name('adminAdsDeleteNew');
+
+    Route::get('pages', 'PagesController@getAll')->name('adminPages');
+    Route::match(['get', 'post'],'page/create', 'PagesController@getCreate')->name('adminPageCreate');
+    Route::match(['get', 'post'],'page/update/{id}', 'PagesController@getUpdate')->where('id', '[0-9]+')->name('adminPageUpdate');
+    Route::get('page/delete/{id}', 'PagesController@getDelete')->where('id', '[0-9]+')->name('adminPageDelete');
+    Route::get('page/delete-new/{id}', 'PagesController@getDeleteNew')->where('id', '[0-9]+')->name('adminPageDeleteNew');
+
+    Route::get('restapp', 'ParsController@restApp')->name('adminParsRestApp');
+    Route::match(['get', 'post'],'restapp-auto-avito-api', 'ParsController@restAppAutoAvitoApi')->name('adminParsRestAppAutoAvitoApi');
+    Route::get('restapp-region', 'ParsController@restAppRegion')->name('adminParsRestAppRegion');
+    Route::get('restapp-city', 'ParsController@restAppCity')->name('adminParsRestAppCity');
 });
+
+
+Route::get('/error/{code}', 'HomeController@pageError')->name('pageError');
+Route::get('/{page?}', 'HomeController@page')->name('page');

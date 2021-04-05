@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\Ads as AdsHelp;
+use App\Helpers\Seo;
 use App\Model\{
     Ads, Adscategory, Adscountry, Adsregion, Adscity, Adsuser, Country, Category
 };
@@ -15,7 +16,7 @@ class AdsController extends Controller
     public function getAll()
     {
         $data = [
-            'title' => 'Категории',
+            'title' => 'Объявления',
             'content' => view('admin.content.adsList', [
                 'adsList' => Ads::orderBy('id', 'desc')->paginate(100),
             ]),
@@ -46,6 +47,15 @@ class AdsController extends Controller
             if($validator->fails()) {
                 return redirect()->route('adminAdsUpdate', ['id'=>$id])->withInput()->withErrors($validator);
             }
+            $request['avatar'] = 'no_photo.jpg';
+            if($request->hasFile('avatar')) {
+                $fileExt = $request->file('avatar')->getClientOriginalExtension();
+                $destinationPath = '../public/uploads/ads/';
+                $fileName = md5($request['head'].date('Y-m-d_H:i:m')) . '.' . $fileExt;
+                $request->file('avatar')->move($destinationPath, $fileName);
+                Seo::getAvatar($destinationPath.$fileName, 800, 500);
+                $request['avatar'] = $fileName;
+            }
             if(Ads::find($id)->update($request->all())) {
                 return redirect()->route('adminAdsAll')->with('status', 'Объявление успешно обновлено');
             }
@@ -61,9 +71,11 @@ class AdsController extends Controller
 
     public function getDelete($id)
     {
-        Ads::find($id)->update([
+        $ads = Ads::find($id);
+        $ads->update([
             'deleted_at' => now()
         ]);
+
         return redirect()->route('adminAdsAll')->with('status', 'Объявление успешно удалено в корзину');
     }
 

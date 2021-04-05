@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use App\Helpers\Profile;
-use App\Model\Country;
+use App\Model\{
+    Region, City
+};
 use Carbon\Carbon;
 use App\User;
+use App\Helpers\{
+    Profile, Seo
+};
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -16,10 +20,14 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->regionList = Region::where('id_country', 1)->get();
     }
 
     public function index()
     {
+        $user = Auth::user();
+
+        //City::where('old', '>', '0')->delete();
         /*$city1 = City1::where('id', '>', 0)->orderBy('id', 'asc')->get();
         foreach($city1 as $c){
             City::create([
@@ -33,7 +41,6 @@ class ProfileController extends Controller
         $data = [
             'content' => view('front.profile', [
                 'user' => Auth::user(),
-                'country' => Country::all(),
             ]),
         ];
         return view('profile', $data);
@@ -47,13 +54,13 @@ class ProfileController extends Controller
             return Profile::updateProfile($request);
         }
         $data = [
+            'regionList' => $this->regionList,
             'content' => view('front.form.profileEdit', [
+                'regionList' => $this->regionList,
                 'userModel' => $userModel,
-                'userCountry' => $userModel->country()->get(),
                 'userRegion' => $userModel->region()->get(),
                 'userCity' => $userModel->city()->get(),
                 'user' => $user,
-                'countryList' => Country::all(),
             ]),
         ];
         return view('profile', $data);
@@ -69,5 +76,25 @@ class ProfileController extends Controller
             ]),
         ];
         return view('profile', $data);
+    }
+
+    public function avatarDown(Request $request)
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        if($request->hasFile('avatarUser')) {
+            $fileExt = $request->file('avatarUser')->getClientOriginalExtension();
+            $destinationPath = public_path().'/uploads/user/avatars/';
+            $fileName = md5($id.time()) . '.' . $fileExt;
+            $request->file('avatarUser')->move($destinationPath, $fileName);
+            Seo::getAvatar($destinationPath.$fileName, 300, 300);
+            $avatar = !empty($fileName) ? $fileName : 'no_photo.jpg';
+            @unlink($destinationPath.$user->avatar);
+
+            if($user->update(['avatar'=>$avatar])){
+                return $avatar;
+            }
+        }
+        return 'Ошибка загрузки';
     }
 }

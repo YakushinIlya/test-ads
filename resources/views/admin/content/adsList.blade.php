@@ -10,7 +10,11 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">
-                        <img src="/uploads/ads/{{$ads->avatar??'no_photo.jpg'}}" class="img-thumbnail">
+                        @if(strpos($ads->avatar, 'http')===false)
+                            <img src="/uploads/ads/{{$ads->avatar??'no_photo.jpg'}}" class="card-img-top" alt="{{$ads->head}}">
+                        @else
+                            <img src="{{$ads->avatar}}" class="card-img-top" alt="{{$ads->head}}">
+                        @endif
                     </p>
                     <p class="card-text">
                         @if($country=$ads->country()->first())

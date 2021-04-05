@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Userregion extends Model
 {
-    protected $table = 'usercity';
+    protected $table = 'userregion';
 
     protected $fillable = [
         'user_id', 'city_id'

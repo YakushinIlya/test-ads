@@ -1,36 +1,39 @@
-<div class="category__list">
-    <h1><i class="fa fa-{{$category['icon']??'question-circle'}}"></i> {{$category['head']}}</h1>
+<div class="ads__list">
+    <h1><i class="fas fa-car"></i> {{$category['head']}}</h1>
     <div>{!! base64_decode($category['body']) !!}</div>
-    @if(isset($ads_list) && !empty($ads_list))
+    @if(isset($ads_list) && !empty($ads_list[0]))
         <div class="row">
             <div class="card-group mt-5">
 
                 @foreach($ads_list as $ads)
-                    <div class="card col-md-4">
-                        <a href="{{route('adsCard', ['id'=>$ads->id])}}">
-                            <img src="/uploads/ads/{{$ads->avatar}}" class="card-img-top" alt="{{$ads->head}}">
+                    <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="{{route('adsCard', ['id'=>$ads->id.'_'.$ads->url])}}">
+                            @if(strpos($ads->avatar, 'http')===false && !empty($ads->avatar))
+                                <img src="/uploads/ads/{{$ads->avatar??'no_photo.jpg'}}" class="card-img-top" alt="{{$ads->head}}">
+                            @elseif(empty($ads->avatar))
+                                <img src="/uploads/ads/no_photo.jpg" class="card-img-top" alt="{{$ads->head}}">
+                            @else
+                                <img src="{{$ads->avatar}}" class="card-img-top" alt="{{$ads->head}}">
+                            @endif
                         </a>
-                        <div class="card-body">
-                            <a href="{{route('adsCard', ['id'=>$ads->id])}}">
+                        <div class="card-body card-body-list">
+                            <p class="card-city">{{$ads->city}}</p>
+                            <a href="{{route('adsCard', ['id'=>$ads->id.'_'.$ads->url])}}">
                                 <h2 class="card-title h6">{{$ads->head}}</h2>
                             </a>
-                            <p class="card-text">{{$str->limit($ads->body, 50)}}</p>
+                            <p class="card-text">{!! $str->limit(base64_decode($ads->body), 50) !!}</p>
                         </div>
-                        <div class="card-footer">
-                            <small class="badge badge-success">{{$ads->price}} <i class="fa fa-ruble-sign"></i></small>
+                        <div class="card-footer card-footer-list">
+                            <small class="badge badge-success">{{number_format($ads->price, 2, '.', ' ')}} <i class="fa fa-ruble-sign"></i></small>
                         </div>
                     </div>
                 @endforeach
-
+                    <div class="col-12 mt-5 mb-3 table-responsive">
+                        {!! $ads_list->links(); !!}
+                    </div>
             </div>
         </div>
     @else
-        <div class="alert alert-warning">{{__('Объявлений не найдено')}}</div>
+        <div class="alert alert-warning">{{__('Объявлений в категории '.$category['head'].' не найдено')}}</div>
     @endif
 </div>
-
-
-
-
-
-
